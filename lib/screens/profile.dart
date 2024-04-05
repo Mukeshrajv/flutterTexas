@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:register_screen/getx_controler/logincontroller.dart';
+import 'package:register_screen/screens/loginPage.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -33,22 +34,32 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            GetBuilder<LoginController>(
-              builder: (controller) {
-                return Text(
-                  'Name: ${userName}',
-                  style: const TextStyle(fontSize: 18),
-                );
-              },
+          child: Scaffold(
+            // appBar: AppBar(
+            //   title: Text('Profile'),
+            //   leading: IconButton(
+            //     icon: Icon(Icons.arrow_back),
+            //     onPressed: () {
+            //       Navigator.pushReplacementNamed(context, '/loginPage');
+            //     },
+            //   ),
+            // ),
+            body: Column(
+              children: [
+                GetBuilder<LoginController>(
+                  builder: (controller) {
+                    return Text(
+                      'Name: ${userName}',
+                      style: const TextStyle(fontSize: 18),
+                    );
+                  },
+                ),
+                Text('email: ${email}')
+              ],
             ),
-            Text('email: ${email}')
-          ],
-        ),
-      ),
-    ));
+          ),
+        ));
   }
 }

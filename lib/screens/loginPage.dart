@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:register_screen/getx_controler/Productcontroller.dart';
 import 'package:register_screen/getx_controler/logincontroller.dart';
 // import 'package:register_screen/screens/profile.dart';
 
@@ -15,9 +16,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final LoginController loginController = Get.put(LoginController());
+  final Productcontroller feature = Get.put(Productcontroller());
   final _formKey = GlobalKey<FormState>();
   String? username;
   String? password;
+  String? productName;
   List data = [];
 
   void _saveForm(BuildContext context) {
@@ -25,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       _formKey.currentState?.save();
       // fetchdata(context);
       loginController.fetchLogin(username, password, context);
+      feature.fetchProduct(productName);
       print("$username - $password");
     }
   }

@@ -1,12 +1,35 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:register_screen/screens/profile.dart';
+import 'package:register_screen/screens/bottomTap.dart';
 // import 'package:register_screen/models/login.dart';
 
 class LoginController extends GetxController {
   List<dynamic> loginList = [].obs;
+
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Alert'),
+          content: Text('Invalid Password'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   get userData => null;
 
@@ -19,13 +42,16 @@ class LoginController extends GetxController {
       final body = res.body;
       final json = jsonDecode(body);
       // Get.to(Profile());
-      Get.to(() => Profile());
+      // Get.to(() => Profile());
+      Navigator.pushReplacementNamed(context, '/home');
       // List<dynamic> data = json.decode(res.body)['data']; // Explicitly defining data type
       // loginList.value = data.map((item) => Login.fromJson(item)).toList();
       // print(data);
 
       loginList = json['data'];
       print(loginList);
+    } else {
+      _showAlertDialog(context);
     }
 // Parse the JSON string
     // Map<String, dynamic> jsonObject = json.decode(loginList[0]);
